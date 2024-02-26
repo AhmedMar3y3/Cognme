@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
+    public function emergencyContacts()
+    {
+        return $this->hasMany(EmergencyContacts::class);
+    }
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

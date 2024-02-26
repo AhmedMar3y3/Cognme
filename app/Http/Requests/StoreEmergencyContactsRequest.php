@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePhysicianRequest extends FormRequest
+class StoreEmergencyContactsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class StorePhysicianRequest extends FormRequest
         return 
         [
             'name' => ['required', 'max:255', 'string'],
-            'email' => ['required', 'email', 'unique:physicians'],
-            'address' => ['required', 'string', 'max:255'],
-            'specialization' => ['required', 'max:30', 'string'],
-            'contact' => ['required', 'regex:/^\+?20(\d{10}|\d{9})$/']  
+            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif', 'max:2048'],
+            'contact' => ['required','regex:/^\+?20(\d{10}|\d{9})$/'],
         ];
     }
 }
