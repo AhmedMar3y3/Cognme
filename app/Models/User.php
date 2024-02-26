@@ -14,6 +14,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(EmergencyContacts::class);
     }
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

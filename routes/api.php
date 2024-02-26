@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmergencyContactsController;
 use App\Http\Controllers\PhysicianController;
@@ -18,6 +19,7 @@ Route::post('/login',[AuthController::class , 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function()
 {   
  Route::resource('/emergency', EmergencyContactsController::class);
+ Route::resource('/appointment', AppointmentController::class);
  Route::resource('/physician', PhysicianController::class);
  Route::post('/logout', [AuthController::class , 'logout']);
 });
