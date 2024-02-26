@@ -11,27 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('physicians', function (Blueprint $table) {
+        Schema::create('emergency_contacts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('address');
-            $table->string('specialization');
+            $table->string('image');
             $table->string('contact');
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
             ->onDelete('cascade');
-            $table->timestamps();  
+            $table->timestamps(); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('physicians');
+        Schema::dropIfExists('emergency_contacts');
     }
 };
