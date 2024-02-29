@@ -16,7 +16,7 @@ class Physician extends Model
         'user_id',
         'name',
         'email',
-        'address_id',
+        'address',
         'specialization',
         'contact',
         'prescription',
@@ -24,10 +24,6 @@ class Physician extends Model
     public function user()
     { 
         return $this->belongsTo(User::class);
-    }
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
     }
     
 }

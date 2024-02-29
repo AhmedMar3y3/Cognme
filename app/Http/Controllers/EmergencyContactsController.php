@@ -34,7 +34,8 @@ class EmergencyContactsController extends Controller
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'image' =>$imageName,
-                'contact' =>$request->contact
+                'contact' =>$request->contact,
+                'relation' => $request->relation,
             ]);
             // save the image in storage folder
             Storage::disk('public')->put($imageName, file_get_contents($request->image));
@@ -51,7 +52,7 @@ class EmergencyContactsController extends Controller
         return new EmergencyContactsResource($emergency);
     }
 
-    // Update An Emergency Contact
+    //Update An Emergency Contact
     public function update(Request $request, EmergencyContacts $emergency)
     {
         if(Auth::user()->id !== $emergency->user_id){
@@ -61,6 +62,7 @@ class EmergencyContactsController extends Controller
         $emergency->update($request->all());
         return new EmergencyContactsResource($emergency);
     }
+
 
     // Delete An Emergency Contact
     public function destroy(EmergencyContacts $emergency)
