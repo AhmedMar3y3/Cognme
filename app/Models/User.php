@@ -9,14 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
-    public function emergencyContacts()
-    {
-        return $this->hasMany(EmergencyContacts::class);
-    }
-    public function appointment()
-    {
-        return $this->hasMany(Appointment::class);
-    }
+   
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -24,10 +17,19 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
     protected $fillable = [
         'name',
+        'birthdate',
+        'gender',
         'email',
         'password',
+        'address_id',
+        'medical_info',
     ];
 
     /**
@@ -49,4 +51,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function physician()
+    {
+        return $this->hasMany(Physician::class);
+    }
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function emergencyContacts()
+    {
+        return $this->hasMany(EmergencyContacts::class);
+    }
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+    
 }
