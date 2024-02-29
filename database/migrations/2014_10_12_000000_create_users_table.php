@@ -21,7 +21,6 @@ return new class extends Migration
             // $table->timestamps();
             $table->id();
             $table->string('name')->unique();
-            $table->date('birthdate')->nullable();
             $table->string('gender')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
