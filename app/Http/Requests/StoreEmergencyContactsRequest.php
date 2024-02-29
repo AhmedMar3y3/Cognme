@@ -24,9 +24,9 @@ class StoreEmergencyContactsRequest extends FormRequest
         return 
         [
             'name' => ['required', 'max:255', 'string'],
-            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif', 'max:2048'],
-            'relation' => ['required', 'max:255', 'string'],
             'contact' => ['required','regex:/^\+?20(\d{10}|\d{9})$/'],
+            'relation' => ['required', 'max:255', 'string'],
+            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif', 'max:2048'],
         ];
     }
 }

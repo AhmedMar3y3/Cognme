@@ -19,8 +19,9 @@ class EmergencyContactsResource extends JsonResource
             "attributes" => 
             [
                "Emergency Contact Name" => $this->name,
-               'Emergency person image' => $this->image ? asset('storage/' . $this->image) : null,
                "Emergency Contact" => $this->contact,
+               'Emergency Relation' => $this->relation,
+               'Emergency person image' => $this->image ? asset('storage/' . $this->image) : null,
                "created_at" => $this->created_at,
                "updated_at" => $this->updated_at
             ],

@@ -33,9 +33,9 @@ class EmergencyContactsController extends Controller
             [
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                'image' =>$imageName,
                 'contact' =>$request->contact,
                 'relation' => $request->relation,
+                'image' =>$imageName,
             ]);
             // save the image in storage folder
             Storage::disk('public')->put($imageName, file_get_contents($request->image));

@@ -18,10 +18,10 @@ class EmergencyContacts extends Model
     // }
     protected $fillable = [
         'user_id',
-        'image',
         'name',
         'contact',
         'relation',
+        'image',
     ];
 
     public function user()
