@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     use HttpResponses;
+
+    // Register a new user
        public function register (StoreUserRequest $request)
     {
         $request ->validated($request->all());
@@ -27,6 +29,8 @@ class AuthController extends Controller
             'token' =>$user->createToken('Api token of' . $user->name)->plainTextToken
         ]);
     }
+
+    // Login an existeng user
     public function login (LoginUserRequest $request)
     {
         $request -> validated($request->all());
@@ -39,6 +43,8 @@ class AuthController extends Controller
             'token' =>$user->createToken('Api token of' . $user->name)->plainTextToken
         ]);
     }
+   
+    // Logout a user 
     public function logout (){
         Auth::user()->currentAccessToken()->delete();
         return $this->success([

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmergencyContactsController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PhysicianController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,7 @@ Route::post('/login',[AuthController::class , 'login']);
 //private routes
 Route::group(['middleware' => ['auth:sanctum']], function()
 {   
+ Route::resource('/patient', PatientController::class);
  Route::resource('/emergency', EmergencyContactsController::class);
  Route::resource('/appointment', AppointmentController::class);
  Route::resource('/physician', PhysicianController::class);
