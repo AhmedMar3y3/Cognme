@@ -15,13 +15,16 @@ class AppointmentController extends Controller
     // Get all Appointments
     public function index()
     {
+        
         return AppointmentResource::collection
         (
             Appointment::where('user_id', Auth::user()->id)->get()
+          
         );
     }
 
    // Create a new Appointment
+   
     public function store(StoreAppointmentRequest $request)
     {
         $request->validated($request->all());
