@@ -28,11 +28,12 @@ Route::group(['middleware' => ['auth:sanctum']], function()
  Route::post('/logout', [AuthController::class , 'logout']);
 });
 
-// Route::prefix('github')->name('socialite.')->controller(SocialiteController::class)->group(function(){
-//     Route::get('/login','login')->name('login');
-//     Route::get('/redirect','redirect')->name('redirect');
-// });
+//socialite auth
+//google
 Route::get('/socialite/auth/google',[SocialiteController::class, 'redirectToGoogle']);
 Route::get('/socialite/redirect/google',[SocialiteController::class, 'handleCallback']);
+//facebook
+Route::get('/socialite/auth/facebook',[SocialiteController::class, 'redirectToFacebook']);
+Route::get('/socialite/redirect/facebook',[SocialiteController::class, 'Callback']);
 //simulateion of the gas sensor 
 Route::get('/simulateGasSensor', [GasSensorController::class,'simulateData']);

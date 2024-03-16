@@ -30,6 +30,7 @@ class User extends Authenticatable
         'address_id',
         'medical_info',
         'provider_id',
+        'provider_name',
     ];
 
     /**
