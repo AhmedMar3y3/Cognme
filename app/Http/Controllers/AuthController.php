@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use App\Notifications\loginotifaication;
 
 class AuthController extends Controller
 {
@@ -38,6 +38,7 @@ class AuthController extends Controller
             return $this->error('','The credintials dont match', 405);
         }
         $user = User::where('email', $request->email)->first();
+        $user->notify(new loginotifaication());
         return $this->success([
             'user' =>$user,
             'token' =>$user->createToken('Api token of' . $user->name)->plainTextToken
