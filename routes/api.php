@@ -17,6 +17,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //public routes
 Route::post('/register',[AuthController::class , 'register']);
 Route::post('/login',[AuthController::class , 'login']);
+Route::post('/forgetpassword', [AuthController::class, 'ForgetPass']);   
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 
 //private routes
 Route::group(['middleware' => ['auth:sanctum']], function()

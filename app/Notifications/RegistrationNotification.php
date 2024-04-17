@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class loginotifaication extends Notification
+class RegistrationNotification extends Notification
 {
     use Queueable;
     public $message;
@@ -20,8 +20,8 @@ class loginotifaication extends Notification
      */
     public function __construct()
     {
-        $this->message='You Just Logged in.';
-        $this->subject='New Log in';
+        $this->message='Thank you for registering with us. We are glad to have you on board!';
+        $this->subject='Welcome to Our Application!';
         $this->fromEmail='test@cognme.com';
         $this->mailer='smtp';
     }
@@ -43,9 +43,11 @@ class loginotifaication extends Notification
     {
         return (new MailMessage)
                     ->mailer('smtp')
+                    ->from($this->fromEmail, 'Cognme')
                     ->subject($this->subject)
-                    ->greeting('Hello '.$notifiable->name)
-                    ->line($this->message);
+                    ->greeting('Hello '.$notifiable->name. ',')
+                    ->line($this->message)
+                    ->salutation('Best Regards, Cognme Team');
     }
 
     /**
