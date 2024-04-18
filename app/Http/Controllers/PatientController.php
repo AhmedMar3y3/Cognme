@@ -16,25 +16,30 @@ class PatientController extends Controller
     // Show the patient
     public function index()
     {
-        return PatientResource::collection
-        (
+        return PatientResource::collection(
             Patient::where('user_id', Auth::user()->id)->get()
         );
     }
 
     public function store(StorePatientRequest $request)
     {
-        $request->validated($request->all());
-        $patient = Patient::create(
-            [
-                'user_id' => Auth::user()->id,
-                'name' => $request->name,
-                'age' =>$request->age,
-                'disease' =>$request->disease,
-                'discreption' =>$request->discreption,
-                'address' =>$request->address,
-            ]); 
-            return new PatientResource($patient);
+        $request->validated();
+        $patient = new Patient([
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'medical_history' => $request->medical_history,
+            'address' => $request->address,
+        ]);
+        if ($request->hasFile('photos')) {
+            $photoPaths = [];
+            foreach ($request->file('photos') as $photo) {
+                $path = $photo->store('patients', 'public');
+                $photoPaths[] = $path;
+            }
+            $patient->photo_paths = json_encode($photoPaths);
+        }
+        $patient->save();
+        return new PatientResource($patient);
     }
 }
   

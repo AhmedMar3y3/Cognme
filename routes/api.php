@@ -7,6 +7,7 @@ use App\Http\Controllers\GasSensorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PhysicianController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\WardrobeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -31,6 +32,7 @@ Route::post('/resetPassword', [AuthController::class, 'resetPassword']);
 Route::group(['middleware' => ['auth:sanctum']], function()
 {   
  Route::resource('/patient', PatientController::class);
+ Route::get('/wardrobe', [WardrobeController::class, 'index']);
  Route::resource('/emergency', EmergencyContactsController::class);
  Route::resource('/appointment', AppointmentController::class);
  Route::resource('/physician', PhysicianController::class);

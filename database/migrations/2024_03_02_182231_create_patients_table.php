@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->integer('age');
-            $table->string('disease');
+            $table->text('medical_history');
             $table->string('discreption');
             $table->string('address');
             $table->foreign('user_id')

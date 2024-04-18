@@ -10,10 +10,17 @@ class Patient extends Model
     use HasFactory;
     protected $fillable =
     [
-        'user_id','name', 'age','disease','discreption','address'
+        'user_id',
+        'name', 'age',
+        'medical_history',
+        'address',
+        'photo_paths'
     ];
     public function user()
     { 
         return $this->belongsTo(User::class);
     }
+    protected $casts = [
+        'photo_paths' => 'array',
+    ];
 }

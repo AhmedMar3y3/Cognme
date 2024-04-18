@@ -19,16 +19,22 @@ class StorePatientRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
-
-            return
-            [
-                'name' => ['required', 'string'],
-                'age' => ['required', 'integer'],
-                'disease' => ['required', 'string'],
-                'discreption' => ['required', 'string'],
-                'address' => ['required', 'string'],
-            ];
+        return [
+            'name' => 'required|string|max:255',
+            'medical_history' => 'required|string|max:2048', 
+            'address' => 'required|string|max:255',
+            'photos' => 'nullable|array',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'photos.*.image' => 'Each photo must be an image file.',
+            'photos.*.mimes' => 'Each photo must be a jpeg, png, jpg, gif, or svg file.',
+            'photos.*.max' => 'Each photo may not be greater than 2048 kilobytes.',
+        ];
     }
 }
