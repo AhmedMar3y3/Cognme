@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function()
  Route::resource('/emergency', EmergencyContactsController::class);
  Route::resource('/appointment', AppointmentController::class);
  Route::resource('/physician', PhysicianController::class);
+ Route::post('/profile/update', [AuthController::class, 'updateUserProfile']);
  Route::post('/logout', [AuthController::class , 'logout']);
 });
 

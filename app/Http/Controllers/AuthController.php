@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserProfileRequest;
 use App\Models\PasswordReset;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -112,14 +113,29 @@ class AuthController extends Controller
         $passwordReset->delete();
         return response()->json(['message' => 'Password has been reset successfully'], 200);
     }
+   
 
- // Logout a user 
- public function logout (){
-    Auth::user()->currentAccessToken()->delete();
-    return $this->success([
-        'message'=> Auth::user()->name .' ,you have successfully logged out and your token has been deleted'
-    ]);
-}
+    //update profile info 
+    public function updateUserProfile(UpdateUserProfileRequest $request){
+        $user = $request->user();
+        $user->fill($request->only(['name', 'email', 'phone']));
+        if ($request->filled('new_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return response()->json(['message' => 'Current password does not match our records.'], 403);
+            }
+            $user->password = Hash::make($request->new_password);
+        }
+        $user->save();
+        return response()->json(['message' => 'Profile updated successfully.', 'user' => $user]);
+    }
 
+
+    // Logout a user 
+    public function logout (){
+        Auth::user()->currentAccessToken()->delete();
+        return $this->success([
+            'message'=> Auth::user()->name .' ,you have successfully logged out and your token has been deleted'
+        ]);
+    }
 
 }

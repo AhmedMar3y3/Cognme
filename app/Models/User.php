@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'address_id',
         'medical_info',
+        'phone',
         'provider_id',
         'provider_name',
     ];
