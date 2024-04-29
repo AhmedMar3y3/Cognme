@@ -6,6 +6,7 @@ use App\Http\Controllers\EmergencyContactsController;
 use App\Http\Controllers\GasSensorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PhysicianController;
+use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\WardrobeController;
 use Illuminate\Http\Request;
@@ -37,7 +38,9 @@ Route::group(['middleware' => ['auth:sanctum']], function()
  Route::resource('/appointment', AppointmentController::class);
  Route::resource('/physician', PhysicianController::class);
  Route::post('/profile/update', [AuthController::class, 'updateUserProfile']);
- Route::post('/logout', [AuthController::class , 'logout']);
+ Route::post('/logout', [AuthController::class , 'logout']); 
+ Route::get('/generate-qr-code-data', [QRCodeController::class, 'generateQrCodeForPatient']);
+
 });
 
 //simulateion of the gas sensor 

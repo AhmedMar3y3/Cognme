@@ -118,16 +118,26 @@ class AuthController extends Controller
     //update profile info 
     public function updateUserProfile(UpdateUserProfileRequest $request){
         $user = $request->user();
-        $user->fill($request->only(['name', 'email', 'phone']));
+        // Retrieve the current user data
+        $userData = $user->toArray();
+        // Fill only the fields that are present in the request and are different from the current values
+        $updateData = array_filter($request->only(['name', 'email', 'phone']), function ($value, $key) use ($userData) {
+            return $value !== null && $value !== $userData[$key];
+        }, ARRAY_FILTER_USE_BOTH);
+        // Check if the new password is provided and update it if necessary
         if ($request->filled('new_password')) {
             if (!Hash::check($request->current_password, $user->password)) {
                 return response()->json(['message' => 'Current password does not match our records.'], 403);
             }
-            $user->password = Hash::make($request->new_password);
+            $updateData['password'] = Hash::make($request->new_password);
         }
+        // Update the user model with the filtered update data
+        $user->fill($updateData);
+        // Save the user model
         $user->save();
         return response()->json(['message' => 'Profile updated successfully.', 'user' => $user]);
     }
+
 
 
     // Logout a user 
