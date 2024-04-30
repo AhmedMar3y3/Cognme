@@ -15,10 +15,9 @@ class WardrobeController extends Controller
         $user = Auth::user();
         $patients = Patient::where('user_id', $user->id)->get();
         $photoUrls = [];
+
         foreach ($patients as $patient) {
-            Log::info('Type of photo_paths:', ['type' => gettype($patient->photo_paths)]);
-            Log::info('Value of photo_paths:', ['value' => $patient->photo_paths]);
-            $paths = $patient->photo_paths;
+            $paths = json_decode($patient->photo_paths, true); // Decode JSON string into an array
             if (is_array($paths)) {
                 foreach ($paths as $path) {
                     $photoUrls[] = Storage::disk('public')->url($path);
@@ -27,7 +26,12 @@ class WardrobeController extends Controller
                 Log::error('Expected an array for photo_paths but received a different type', ['received_type' => gettype($paths)]);
             }
         }
+
+        // Log the photo URLs for debugging
+        Log::info('Photos found:', ['photos' => $photoUrls]);
+
         return response()->json(['photos' => $photoUrls]);
     }
+
     
 }
