@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmergencyContactsController;
+use App\Http\Controllers\FlaskController;
 use App\Http\Controllers\GasSensorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PhysicianController;
@@ -42,6 +43,10 @@ Route::group(['middleware' => ['auth:sanctum']], function()
  Route::get('/generate-qr-code-data', [QRCodeController::class, 'generateQrCodeForPatient']);
 
 });
+
+
+Route::post('/predict', [FlaskController::class, 'handlePrediction']);
+
 
 //simulateion of the gas sensor 
 Route::get('/simulateGasSensor', [GasSensorController::class,'simulateData']);

@@ -40,4 +40,8 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_CALLBACK_URL'),
       ],
+      
+      'flask' => [
+        'base_url' => env('FLASK_API_URL'),
+    ],
 ];
